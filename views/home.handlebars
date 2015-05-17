@@ -17,9 +17,9 @@
             <form class="form-horizontal" role="form" action="/shortener" method="POST">
                 <div class="form-group form-group-lg ">
                     <div class="input-group input-group-lg url-shortener-input">
-                        <input type="text" name="url" class="form-control input-lg" placeholder="Long Url...">
+                        <input type="text" name="url" id="url" class="form-control input-lg" placeholder="Long Url...">
                         <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Shorten</button>
+                        <button class="btn btn-default" type="submit" id="submitBtn">Shorten</button>
                       </span>
                     </div>
                     <!-- /input-group -->
@@ -27,6 +27,7 @@
                 <!-- /.col-lg-6 -->
             </form>
         </div>
+
+        <div class="alert alert-warning" id="flasher-div" style="display:none" role="alert" ><span id="url-flasher"></span></div>
     </div>
 </header>
-
