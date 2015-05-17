@@ -1,11 +1,14 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var credentials = require('./credentials.js');
-var mongoose = require('mongoose');
-var app = express();
+var express = require('express')
+    ,   app = express()
+    ,   server = require('http').createServer(app)
+    ,   io = require('socket.io').listen(server)
+    ,   emitter = require('./util/socket-util.js')(io)
+    ,   path = require('path')
+    ,   logger = require('morgan')
+    ,   cookieParser = require('cookie-parser')
+    ,   bodyParser = require('body-parser')
+    ,   credentials = require('./credentials.js')
+    ,   mongoose = require('mongoose');
 
 //setup db
 var options = {
@@ -24,15 +27,10 @@ var handlebars = require('express-handlebars').
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-var Url = require('./models/url.js');
 
 // setup flash message
 app.use(function(req, res, next){
@@ -44,8 +42,7 @@ app.use(function(req, res, next){
 });
 
 // All the routes goes in this file.
-var routes = require('./routes/index');
-app.use('/', routes);
+require('./routes/index')(app, io, credentials.server);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -78,5 +75,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var runningPortNumber = process.env.PORT || 3000;
 
-module.exports = app;
+server.listen(runningPortNumber, function () {
+    var port = server.address().port;
+    console.log('transporter app listening at  port %s', runningPortNumber);
+});
+
