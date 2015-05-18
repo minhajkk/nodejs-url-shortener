@@ -50,7 +50,7 @@ module.exports = function(app, io, server) {
                     message: 'YOU\'VE CREATED YOUR URL SHORTENER!',
                     slug: url.slug
                 };
-                io.to('clients').emit("url.changed", {url: server+url.slug});
+                io.to('clients').emit("url.changed", {url: url.url});
             }
             res.redirect(303, '/');
         });
