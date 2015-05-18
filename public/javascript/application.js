@@ -4,7 +4,7 @@
 //
 **************************************/
 // connect to our socket server
-var socket = io('http://localhost:3000/');
+var socket = io('https://node-us.herokuapp.com/');
 
 // shortcut for document.ready
 $(function(){
