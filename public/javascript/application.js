@@ -15,9 +15,12 @@ $(function(){
 
 	//SOCKET STUFF
 	socket.on("url.changed", function(data){
-        $("#flasher-div").show();
-        $flasher.html("Newly shorten: " + data.url);
-        $flasher.removeClass('animated fadeInLeftBig');
-        setTimeout(function(){$flasher.addClass('animated fadeInLeftBig')}, 1);
+        setTimeout(function(){
+            $flasher.removeClass('animated fadeInLeftBig');
+            $("#flasher-div").show();
+            $flasher.html("Newly shorten: " + data.url);
+            setTimeout(function(){$flasher.addClass('animated fadeInLeftBig')}, 1);
+        }, 2000);
+
 	});
 });

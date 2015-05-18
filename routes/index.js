@@ -52,7 +52,7 @@ module.exports = function(app, io, server) {
                 };
                 setTimeout(function(){
                     io.to('clients').emit("url.changed", {url: url.url});
-                }, 60);
+                }, 0);
             }
             res.redirect(303, '/');
         });
